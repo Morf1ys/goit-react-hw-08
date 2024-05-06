@@ -1,0 +1,46 @@
+body {
+  font-family: sans-serif;
+  line-height: 1.5;
+  background: url("./img/6231375.jpg") no-repeat;
+  background-size: cover;
+  background-position: center;
+  min-height: 80vh;
+  align-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+ul {
+  list-style: none;
+}
+.cont-main {
+  margin: 0 auto;
+  display: flex;
+  gap: 60px;
+  height: 100%;
+}
+.titletxt {
+  color: white;
+  font-size: 35px;
+}
