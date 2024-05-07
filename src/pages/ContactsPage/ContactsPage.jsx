@@ -6,9 +6,11 @@ import ContactList from '../../components/ContactList/ContactList'; // Пере�
 
 const ContactsPage = () => {
   return (
-    <div className={css['cont-main']}>
+    <div > 
+      {/* className={css['cont-main']} */}
       <div>
-        <h1 className={css.titletxt}>Phonebook</h1>
+        <h1 >Phonebook</h1>
+        {/* className={css.titletxt} */}
         <ContactForm />
       </div>
       <div>

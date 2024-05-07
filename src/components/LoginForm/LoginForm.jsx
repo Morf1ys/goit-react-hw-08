@@ -13,34 +13,39 @@ const LoginForm = ({ onLogin }) =>
   
   
   <Formik
-    initialValues={{ email: '', password: '' }}
-    validationSchema={loginSchema}
-    onSubmit={(values, { setSubmitting }) => {
-      axios.post('https://connections-api.herokuapp.com/users/login', values)
-        .then(response => {
-          toast.success('Login successful');
-          onLogin(response.data); // Handle login success
-          
-          setSubmitting(false);
-        })
-        .catch(error => {
-          toast.error(`Login failed: ${error.response.data.message}`);
-          setSubmitting(false);
-        });
- 
-    }}
-  >
+  initialValues={{ email: '', password: '' }}
+  validationSchema={loginSchema}
+  onSubmit={(values, { setSubmitting, resetForm }) => {
+    axios.post('https://connections-api.herokuapp.com/users/login', values)
+      .then(response => {
+        console.log('Login successful:', response.data); // Відладка успішної відповіді
+        toast.success('Login successful');
+        onLogin(response.data); // Обробка успішного логіну
+        console.log('After onLogin'); // Перевірка чи виконується код після onLogin
+        resetForm();
+        setSubmitting(false);
+      })
+      .catch(error => {
+        console.log('Error occurred:', error); // Відладка помилки
+        const errorMessage = error.response && error.response.data ? error.response.data.message : 'Login failed due to server error';
+        toast.error(errorMessage);
+        setSubmitting(false);
+      });
+  }}
+>
+  {({ isSubmitting }) => (
     <Form>
-      
       <Field name="email" type="email" placeholder="Email" />
       <ErrorMessage name="email" component="div" />
 
       <Field name="password" type="password" placeholder="Password" />
       <ErrorMessage name="password" component="div" />
 
-      <button type="submit">Login</button>
+      <button type="submit" disabled={isSubmitting}>Login</button>
     </Form>
-  </Formik>
+  )}
+</Formik>
+
 
 
 export default LoginForm;
