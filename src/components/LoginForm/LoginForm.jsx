@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -8,8 +9,9 @@ const loginSchema = Yup.object({
   password: Yup.string().required('Password is required'),
 });
 
-const LoginForm = ({ onLogin }) => (
-  
+const LoginForm = ({ onLogin }) => {
+  const navigate = useNavigate();
+  return(
   <Formik
     initialValues={{ email: '', password: '' }}
     validationSchema={loginSchema}
@@ -18,18 +20,14 @@ const LoginForm = ({ onLogin }) => (
         .then(response => {
           toast.success('Login successful');
           onLogin(response.data); // Handle login success
+          navigate('/contacts');
           setSubmitting(false);
         })
         .catch(error => {
           toast.error(`Login failed: ${error.response.data.message}`);
           setSubmitting(false);
-        })
-      .catch(error => {
-  const message = error.response ? error.response.data.message : 'Network error';
-  toast.error(`Login failed: ${message}`);
-  setSubmitting(false);
-});
-
+        });
+ 
     }}
   >
     <Form>
@@ -44,6 +42,6 @@ const LoginForm = ({ onLogin }) => (
     </Form>
   </Formik>
 );
-
+}
 export default LoginForm;
 
