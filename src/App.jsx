@@ -16,25 +16,17 @@ function App() {
         <Layout>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/register" element={
-              <RestrictedRoute>
-                <RegistrationPage />
-              </RestrictedRoute>
-            } />
-            <Route path="/login" element={
-              <RestrictedRoute>
-                <LoginPage />
-              </RestrictedRoute>
-            } />
-            <Route path="/contacts" element={
-              <PrivateRoute>
-                <ContactsPage />
-              </PrivateRoute>
-            } />
+            <Route element={<RestrictedRoute />}>
+              <Route path="/register" element={<RegistrationPage />} />
+              <Route path="/login" element={<LoginPage />} />
+            </Route>
+            <Route element={<PrivateRoute />}>
+              <Route path="/contacts" element={<ContactsPage />} />
+            </Route>
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Layout>
-      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+        <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
     </>
   );
 }

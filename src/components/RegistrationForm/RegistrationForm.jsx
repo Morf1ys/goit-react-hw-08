@@ -14,7 +14,7 @@ const RegistrationForm = ({ onRegister }) => (
     initialValues={{ name: '', email: '', password: '' }}
     validationSchema={registrationSchema}
     onSubmit={(values, { setSubmitting }) => {
-      axios.post('https://your-api-url.com/users/signup', values)
+      axios.post('https://connections-api.herokuapp.com/users/signup', values)
         .then(response => {
           toast.success('Registration successful');
           onRegister(response.data);

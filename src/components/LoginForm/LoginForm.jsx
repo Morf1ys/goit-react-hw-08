@@ -9,11 +9,12 @@ const loginSchema = Yup.object({
 });
 
 const LoginForm = ({ onLogin }) => (
+  
   <Formik
     initialValues={{ email: '', password: '' }}
     validationSchema={loginSchema}
     onSubmit={(values, { setSubmitting }) => {
-      axios.post('https://your-api-url.com/users/login', values)
+      axios.post('https://connections-api.herokuapp.com/users/login', values)
         .then(response => {
           toast.success('Login successful');
           onLogin(response.data); // Handle login success
@@ -22,10 +23,17 @@ const LoginForm = ({ onLogin }) => (
         .catch(error => {
           toast.error(`Login failed: ${error.response.data.message}`);
           setSubmitting(false);
-        });
+        })
+      .catch(error => {
+  const message = error.response ? error.response.data.message : 'Network error';
+  toast.error(`Login failed: ${message}`);
+  setSubmitting(false);
+});
+
     }}
   >
     <Form>
+      
       <Field name="email" type="email" placeholder="Email" />
       <ErrorMessage name="email" component="div" />
 
