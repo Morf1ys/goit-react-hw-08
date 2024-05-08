@@ -2,15 +2,17 @@ import { useDispatch } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import InputMask from 'react-input-mask';
-import { addContact } from '../../redux/contactsOps';
+import { addContact, updateContact } from '../../redux/contactsOps';
 import css from './ContactForm.module.css'; 
 
-const ContactForm = () => {
+
+
+const ContactForm = ({ initialValues }) => {
   const dispatch = useDispatch();
 
   return (
     <Formik
-      initialValues={{ name: '', number: '' }}
+      initialValues={initialValues || { id: '', name: '', number: '' }}
       validationSchema={Yup.object({
         name: Yup.string().min(3).max(50).required('Please enter your name'),
         number: Yup.string()
@@ -19,12 +21,17 @@ const ContactForm = () => {
           .required('Number is required'),
       })}
       onSubmit={(values, { resetForm }) => {
-        dispatch(addContact(values));
+        if (values.id) {
+          dispatch(updateContact({ id: values.id, contact: { name: values.name, number: values.number } }));
+          console.log('Sending update request...');
+        } else {
+          dispatch(addContact({ name: values.name, number: values.number }));
+          console.log('Sending add request...');
+        }
         resetForm();
       }}
     >
       <Form className={css['cont-form-us']}>
-
         <label htmlFor="name" className={css['lbl-form-us']}>Name:</label>
         <Field type="text" id="name" name="name" className={css['inp-box']} />
         <ErrorMessage name="name" component="div" className={css.err}/>

@@ -24,33 +24,32 @@ const contactsSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchContacts.fulfilled, (state, action) => {
-        state.items = action.payload; // Запис даних контактів
+        state.items = action.payload;
         state.loading = false;
       })
       .addCase(fetchContacts.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message; // Збереження повідомлення про помилку
+        state.error = action.error.message;
       })
       .addCase(addContact.fulfilled, (state, action) => {
-        state.items.push(action.payload); // Додавання нового контакту
+        state.items.push(action.payload);
       })
       .addCase(deleteContact.fulfilled, (state, action) => {
         state.items = state.items.filter(
-          (contact) => contact.id !== action.payload // Видалення контакту
+          (contact) => contact.id !== action.payload
         );
       })
       .addCase(updateContact.fulfilled, (state, action) => {
-        const index = state.items.findIndex(
+        const updatedIndex = state.items.findIndex(
           (contact) => contact.id === action.payload.id
         );
-        if (index !== -1) {
-          state.items[index] = action.payload; // Оновлення контакту
+        if (updatedIndex !== -1) {
+          state.items[updatedIndex] = action.payload;
         }
       });
   },
 });
 
-// export const selectFilteredContacts = (state) => state.contacts.items;
 export const selectLoading = (state) => state.contacts.loading;
 export const selectError = (state) => state.contacts.error;
 
