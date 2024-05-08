@@ -23,7 +23,7 @@ const ContactList = () => {
     />
   );
 
-  if (error) return <p>Error: {error}</p>; 
+  if (error) return <p>Error: {error}</p>;  // Показ помилки, якщо вона є
 
   return (
     <ul className={css['list-cont']}>

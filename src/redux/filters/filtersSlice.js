@@ -1,3 +1,4 @@
+// src/redux/filters/filtersSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -9,14 +10,12 @@ const filtersSlice = createSlice({
   initialState,
   reducers: {
     changeFilter(state, action) {
-      state.nameFilter = action.payload;
+      state.nameFilter = action.payload.toLowerCase();
     },
   },
 });
 
 export const { changeFilter } = filtersSlice.actions;
-
-// Селектор для отримання поточного фільтра
 export const selectFilter = (state) => state.filters.nameFilter;
 
 export default filtersSlice.reducer;
