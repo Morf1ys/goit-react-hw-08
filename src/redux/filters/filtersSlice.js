@@ -1,4 +1,3 @@
-// src/redux/filters/filtersSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {

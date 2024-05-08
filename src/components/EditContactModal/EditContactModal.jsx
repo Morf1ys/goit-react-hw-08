@@ -1,18 +1,20 @@
-// src/components/EditContactModal.js
-import { useState } from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Modal from 'react-modal';
+import * as Yup from 'yup';
+import InputMask from 'react-input-mask';
 
 Modal.setAppElement('#root');
 
+const validationSchema = Yup.object().shape({
+  name: Yup.string()
+    .min(3, 'Ім\'я повинне містити щонайменше 3 символи')
+    .required('Це поле є обов\'язковим'),
+  number: Yup.string()
+    .matches(/^\d{3}-\d{2}-\d{2}$/, 'Номер повинен мати формат 123-45-67')
+    .required('Це поле є обов\'язковим')
+});
+
 const EditContactModal = ({ isOpen, onRequestClose, contact, onSave }) => {
-  const [name, setName] = useState(contact.name);
-  const [number, setNumber] = useState(contact.number);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSave({ name, number });
-  };
-
   return (
     <Modal
       isOpen={isOpen}
@@ -20,20 +22,37 @@ const EditContactModal = ({ isOpen, onRequestClose, contact, onSave }) => {
       contentLabel="Edit Contact"
     >
       <h2>Edit Contact</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          type="text"
-          value={number}
-          onChange={(e) => setNumber(e.target.value)}
-        />
-        <button type="submit">Save Changes</button>
-        <button onClick={onRequestClose}>Cancel</button>
-      </form>
+      <Formik
+        initialValues={{ name: contact.name, number: contact.number }}
+        validationSchema={validationSchema}
+        onSubmit={(values, { setSubmitting }) => {
+          onSave(values);
+          setSubmitting(false);
+          onRequestClose();
+        }}
+      >
+        <Form>
+          <label htmlFor="name">Name</label>
+          <Field name="name" type="text" />
+          <ErrorMessage name="name" component="div" className="error" />
+
+          <label htmlFor="number">Номер:</label>
+          <Field name="number">
+            {({ field }) => (
+              <InputMask
+                {...field}
+                mask="999-99-99"
+                placeholder="123-45-67"
+                type="text"
+              />
+            )}
+          </Field>
+          <ErrorMessage name="number" component="div" className="error" />
+
+          <button type="submit">Save Changes</button>
+          <button type="button" onClick={onRequestClose}>Cancel</button>
+        </Form>
+      </Formik>
     </Modal>
   );
 };

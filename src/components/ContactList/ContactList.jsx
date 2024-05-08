@@ -23,9 +23,10 @@ const ContactList = () => {
     />
   );
 
-  if (error) return <p>Error: {error}</p>;  // Показ помилки, якщо вона є
+  if (error) return <p>Error: {error}</p>; 
 
   return (
+    
     <ul className={css['list-cont']}>
       {contacts.length > 0 ? contacts.map((contact) => (
         <Contact key={contact.id} contact={contact} />

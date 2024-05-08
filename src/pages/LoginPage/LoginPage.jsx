@@ -1,7 +1,7 @@
 import LoginForm from '../../components/LoginForm/LoginForm';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setUser } from '../../redux/auth/authSlice';  // Вкажіть правильний шлях до вашого authSlice
+import { setUser } from '../../redux/auth/authSlice';  
 
 
 const LoginPage = () => {

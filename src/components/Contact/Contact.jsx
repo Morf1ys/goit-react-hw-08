@@ -1,16 +1,18 @@
-// src/components/Contact.js
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteContact, updateContact } from '../../redux/contactsOps';
 import { FaUser, FaPhoneAlt, FaTrash, FaPencilAlt } from 'react-icons/fa';
-import EditContactModal from '../EditContactModal/EditContactModal';  // Переконайтесь, що шлях до компонента правильний
+import EditContactModal from '../EditContactModal/EditContactModal'; 
+import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
 
 const Contact = ({ contact }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const dispatch = useDispatch();
 
   const handleDelete = () => {
     dispatch(deleteContact(contact.id));
+    setDeleteModalIsOpen(false); // Закриваємо модальне вікно після підтвердження
   };
 
   const handleEdit = () => {
@@ -27,12 +29,17 @@ const Contact = ({ contact }) => {
       <p><FaUser /> {contact.name}</p>
       <p><FaPhoneAlt /> {contact.number}</p>
       <button onClick={handleEdit}><FaPencilAlt /></button>
-      <button onClick={handleDelete}><FaTrash /></button>
+      <button onClick={() => setDeleteModalIsOpen(true)}><FaTrash /></button>
       <EditContactModal
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
         contact={contact}
         onSave={handleSave}
+      />
+      <ConfirmDeleteModal
+        isOpen={deleteModalIsOpen}
+        onRequestClose={() => setDeleteModalIsOpen(false)}
+        onDelete={handleDelete}
       />
     </li>
   );

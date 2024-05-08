@@ -1,5 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { createSelector } from "@reduxjs/toolkit";
+import { createSlice, createSelector } from "@reduxjs/toolkit";
 import {
   fetchContacts,
   addContact,
@@ -16,20 +15,18 @@ const initialState = {
 const contactsSlice = createSlice({
   name: "contacts",
   initialState,
-  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchContacts.pending, (state) => {
         state.loading = true;
-        state.error = null;
       })
       .addCase(fetchContacts.fulfilled, (state, action) => {
         state.items = action.payload;
         state.loading = false;
       })
       .addCase(fetchContacts.rejected, (state, action) => {
-        state.loading = false;
         state.error = action.error.message;
+        state.loading = false;
       })
       .addCase(addContact.fulfilled, (state, action) => {
         state.items.push(action.payload);
@@ -40,25 +37,28 @@ const contactsSlice = createSlice({
         );
       })
       .addCase(updateContact.fulfilled, (state, action) => {
-        const updatedIndex = state.items.findIndex(
+        const index = state.items.findIndex(
           (contact) => contact.id === action.payload.id
         );
-        if (updatedIndex !== -1) {
-          state.items[updatedIndex] = action.payload;
+        if (index !== -1) {
+          state.items[index] = action.payload;
         }
       });
   },
 });
-
 export const selectLoading = (state) => state.contacts.loading;
 export const selectError = (state) => state.contacts.error;
 
-export default contactsSlice.reducer;
-
 export const selectFilteredContacts = createSelector(
   [(state) => state.contacts.items, (state) => state.filters.nameFilter],
-  (items, filter) =>
-    items.filter((contact) =>
-      contact.name.toLowerCase().includes(filter.toLowerCase())
-    )
+  (items, filter) => {
+    const normalizedFilter = filter.toLowerCase();
+    return items.filter(
+      (contact) =>
+        contact.name.toLowerCase().includes(normalizedFilter) ||
+        contact.number.includes(normalizedFilter)
+    );
+  }
 );
+
+export default contactsSlice.reducer;
