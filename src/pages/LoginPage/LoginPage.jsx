@@ -1,13 +1,18 @@
 import LoginForm from '../../components/LoginForm/LoginForm';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../redux/auth/authSlice';  // Вкажіть правильний шлях до вашого authSlice
+
 
 const LoginPage = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handleLoginSuccess = (userData) => {
-        // Тут можна зберігати userData у стані застосунку, використовуючи Redux або Context API
-        console.log('User logged in:', userData);
-        navigate('/contacts'); // Редирект після успішного логіну
+        // Цей рядок викликає setUser для оновлення стану в Redux
+        dispatch(setUser({ user: userData.user, token: userData.token }));
+        // Редирект на сторінку контактів
+        navigate('/contacts');
     };
 
     return (

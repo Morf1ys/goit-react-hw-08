@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
+import { setUser, setLogout } from "./authSlice";
 // Основна адреса API
 const API_BASE_URL = "https://connections-api.herokuapp.com";
 
@@ -23,11 +23,14 @@ export const register = createAsyncThunk(
 // Логін існуючого користувача
 export const login = createAsyncThunk(
   "auth/login",
-  async (userData, { rejectWithValue }) => {
+  async (userData, { dispatch, rejectWithValue }) => {
     try {
       const response = await axios.post(
         `${API_BASE_URL}/users/login`,
         userData
+      );
+      dispatch(
+        setUser({ user: response.data.user, token: response.data.token })
       );
       return response.data;
     } catch (error) {
@@ -36,28 +39,25 @@ export const login = createAsyncThunk(
   }
 );
 
-// Вихід з системи
 export const logout = createAsyncThunk(
   "auth/logout",
-  async (_, { getState, rejectWithValue }) => {
+  async (_, { dispatch, getState, rejectWithValue }) => {
     try {
       const { auth } = getState();
       const response = await axios.post(
         `${API_BASE_URL}/users/logout`,
         {},
         {
-          headers: {
-            Authorization: `Bearer ${auth.token}`,
-          },
+          headers: { Authorization: `Bearer ${auth.token}` },
         }
       );
+      dispatch(setLogout());
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
   }
 );
-
 // Оновлення стану користувача
 export const refreshUser = createAsyncThunk(
   "auth/refresh",

@@ -31,8 +31,9 @@ const LoginForm = ({ onLogin }) =>
         toast.error(errorMessage);
         setSubmitting(false);
       });
-  }}
->
+    
+    }}>
+    
   {({ isSubmitting }) => (
     <Form>
       <Field name="email" type="email" placeholder="Email" />

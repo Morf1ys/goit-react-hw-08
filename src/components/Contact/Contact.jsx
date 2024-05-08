@@ -18,10 +18,15 @@ const Contact = ({ contact }) => {
     setIsEditing(true);
   };
 
-  const handleSave = () => {
-    dispatch(updateContact({ id: contact.id, name: editedName, number: editedNumber }));
-    setIsEditing(false);
+const handleSave = () => {
+  const updatedContact = {
+    id: contact.id,
+    name: editedName,
+    number: editedNumber
   };
+  dispatch(updateContact(updatedContact));
+  setIsEditing(false);
+};
 
   return (
     <li className={css['list-item']}>
