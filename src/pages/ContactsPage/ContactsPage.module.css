@@ -1,17 +1,10 @@
-body {
-  font-family: sans-serif;
-  line-height: 1.5;
-  background: url("./img/6231375.jpg") no-repeat;
-  background-size: cover;
-  background-position: center;
-  min-height: 80vh;
-  align-items: center;
+.cont-main-contact {
   display: flex;
-  align-items: center;
+  gap: 90px;
   justify-content: center;
+  padding-top: 50px;
 }
-.cont-main {
-  background: url("./img/6231375.jpg") no-repeat;
-  background-size: cover;
-  background-position: center;
+.title {
+  color: white;
+  font-size: 35px;
 }

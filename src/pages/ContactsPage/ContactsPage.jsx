@@ -5,7 +5,8 @@ import { fetchContacts } from '../../redux/contactsOps';
 import ContactForm from '../../components/ContactForm/ContactForm';
 import SearchBox from '../../components/SearchBox/SearchBox';
 import ContactList from '../../components/ContactList/ContactList';
-
+import css from './ContactsPage.module.css';
+import BackgroundImage from '../../components/BackgroundImageContacts/BackgroundImageContacts';
 const ContactsPage = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
@@ -17,11 +18,16 @@ const ContactsPage = () => {
   }, [dispatch, isLoggedIn]);
 
   return (
-    <div>
-      <h1>Phonebook</h1>
-      <ContactForm />
-      <SearchBox />
-      <ContactList />
+    <div className={css['cont-main-contact']}>
+      <BackgroundImage />
+      <div >
+      <h1 className={css.title}>Phonebook</h1>
+        <ContactForm />
+      </div>
+      <div>
+        <SearchBox />
+        <ContactList />
+      </div>
     </div>
   );
 };

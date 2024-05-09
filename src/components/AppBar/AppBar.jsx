@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux';
 import { getIsLoggedIn } from '../../redux/auth/selectors';
-
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { logout } from '../../redux/auth/operations'; // Переконайтесь, що ви імпортували дію logout правильно
+import { NavLink, useNavigate } from 'react-router-dom';
+import { logout } from '../../redux/auth/operations'; 
+import css from './AppBar.module.css';
 
 const AppBar = () => {
   const isLoggedIn = useSelector(getIsLoggedIn);
@@ -12,22 +12,25 @@ const AppBar = () => {
 
   const handleLogout = async () => {
     await dispatch(logout());
-    navigate('/'); // Редирект на головну сторінку після логауту
+    navigate('/');
   };
+  const linkActive = ({ isActive }) => {
+  return isActive ? `${css.link} ${css.active}` : css.link;
+};
 
   return (
     <header>
-      <nav>
-        <Link to="/">Home</Link>
+      <nav className= {css['nav-cont']}>
+        <NavLink to="/"  className={linkActive}>Home</NavLink>
         {isLoggedIn ? (
           <>
-            <Link to="/contacts">Contacts</Link>
-            <button onClick={handleLogout}>Logout</button>
+            <NavLink to="/contacts" className={linkActive} >Contacts</NavLink>
+            <button onClick={handleLogout} className={`${css.link} ${css.button}`}>Logout</button>
           </>
         ) : (
           <>
-            <Link to="/register">Register</Link>
-            <Link to="/login">Login</Link> {/* Додав посилання на логін */}
+            <NavLink to="/register" className={linkActive}>Register</NavLink>
+            <NavLink to="/login" className={linkActive}>Login</NavLink>
           </>
         )}
       </nav>
@@ -36,4 +39,6 @@ const AppBar = () => {
 };
 
 export default AppBar;
+
+
 
