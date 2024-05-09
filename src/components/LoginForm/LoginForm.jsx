@@ -4,8 +4,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import css from './LoginForm.module.css';
 import LoginRegistrationImage from '../LoginRegistrationImage/LoginRegistrationImage';
-import { LuUser2 } from "react-icons/lu";
-import { CiLock } from "react-icons/ci";
+import {  FaEnvelope, FaLock } from 'react-icons/fa';
 
 const loginSchema = Yup.object({
   email: Yup.string().email('Invalid email').required('Email is required'),
@@ -35,13 +34,13 @@ const LoginForm = ({ onLogin }) =>
       {({ isSubmitting }) => (
         <Form>
           <div className={css.inputGroup}>
-            <LuUser2 className={css.icon} size={20}/>
+            <FaEnvelope className={css.icon} />
             <Field name="email" type="email" placeholder="Email" className={css.inputField} />
           </div>
           <ErrorMessage name="email" component="div" className={css.error} />
 
           <div className={css.inputGroup}>
-            <CiLock className={css.icon}  size={20} />
+            <FaLock className={css.icon} />
             <Field name="password" type="password" placeholder="Password" className={css.inputField} />
           </div>
           <ErrorMessage name="password" component="div" className={css.error} />

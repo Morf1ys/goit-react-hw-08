@@ -36,7 +36,10 @@
 .icon {
   position: absolute;
   left: 10px;
-  color: gray;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgb(174, 174, 174);
+  font-size: 16px;
 }
 
 .inputField:focus {
