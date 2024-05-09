@@ -1,0 +1,74 @@
+/* EditContactModal.module.css */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  z-index: 50;
+}
+
+.modalContent {
+  width: 50%;
+  max-width: 400px;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 20px;
+  margin: 10% auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modalButton {
+  padding: 10px 20px;
+  margin-right: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.modalButtonCancel {
+  padding: 10px 20px;
+  margin-right: 10px;
+  background-color: #c43820;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modalButton:hover {
+  background-color: #45a049;
+}
+.modalButtonCancel:hover {
+  background-color: #f33210;
+}
+
+.error {
+  color: red;
+  font-size: 0.8rem;
+  margin: 5px 0;
+}
+.cont-form-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.cont-btn-edit {
+  padding-top: 10px;
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+}
+.input-edit {
+  border-radius: 10px;
+  width: 300px;
+  height: 30px;
+}
+.cont-inp {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}

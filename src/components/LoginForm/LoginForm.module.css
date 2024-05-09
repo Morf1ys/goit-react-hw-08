@@ -1,0 +1,69 @@
+.cont-Login-form-page {
+  padding-top: 120px;
+}
+.formContainer {
+  position: relative;
+  width: 300px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.85); /* Забезпечує напівпрозорість */
+  border-radius: 20px; /* Заокруглені краї */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Тінь для плавучого ефекту */
+  margin: auto;
+  text-align: center;
+}
+
+.inputField {
+  width: 100%;
+  padding-left: 30px;
+  margin: 10px 0;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  background-color: transparent;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.inputField:focus {
+  border-bottom-color: #666;
+}
+.inputGroup {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.icon {
+  position: absolute;
+  left: 10px;
+  color: gray;
+}
+
+.inputField:focus {
+  border-color: #666;
+}
+
+.button {
+  padding: 10px 20px;
+  width: 100%;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: #45a049;
+}
+
+.error {
+  color: red;
+  margin-top: 5px;
+}
+
+.h1 {
+  margin-bottom: 20px;
+}

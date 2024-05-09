@@ -1,8 +1,8 @@
 .modal-content {
-  width: 300px; /* або будь-який розмір, який вам потрібен */
+  width: 400px;
   background-color: #fff;
-  padding: 20px;
-  border-radius: 5px;
+  padding: 30px;
+  border-radius: 9px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 .modal-overlay {
@@ -15,5 +15,43 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  backdrop-filter: blur(5px); /* Заблюрення для заднього контенту */
+  backdrop-filter: blur(5px);
+}
+
+.btn-ok {
+  padding: 10px 20px;
+  margin-right: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.btn-no {
+  padding: 10px 20px;
+  margin-right: 10px;
+  background-color: #c43820;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-ok:hover {
+  background-color: #5ce363;
+}
+.btn-no:hover {
+  background-color: #f33210;
+}
+.txt {
+  display: flex;
+  align-items: center;
+}
+.icon {
+  color: yellowgreen;
+}
+.btn-cont {
+  display: flex;
+  padding-top: 10px;
+  gap: 30px;
 }

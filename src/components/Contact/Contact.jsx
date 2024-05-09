@@ -4,6 +4,7 @@ import { deleteContact, updateContact } from '../../redux/contactsOps';
 import { FaUser, FaPhoneAlt, FaTrash, FaPencilAlt } from 'react-icons/fa';
 import EditContactModal from '../EditContactModal/EditContactModal'; 
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
+import css from '../ContactList/ContactList.module.css';
 
 const Contact = ({ contact }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -25,11 +26,15 @@ const Contact = ({ contact }) => {
   };
 
   return (
-    <li>
+    <li className={css['list-item']}>
+      <div className={css['contact-info']}>
       <p><FaUser /> {contact.name}</p>
-      <p><FaPhoneAlt /> {contact.number}</p>
-      <button onClick={handleEdit}><FaPencilAlt /></button>
-      <button onClick={() => setDeleteModalIsOpen(true)}><FaTrash /></button>
+        <p><FaPhoneAlt /> {contact.number}</p>
+      </div>
+      <div className={css['cont-btn-ed-del']}>
+      <button onClick={handleEdit}className={css['btn-edit']}><FaPencilAlt size={14}/></button>
+        <button onClick={() => setDeleteModalIsOpen(true)} className={css['btn-delete']}><FaTrash size={14} /></button>
+        </div>
       <EditContactModal
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
