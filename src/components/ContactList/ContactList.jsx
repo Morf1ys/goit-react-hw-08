@@ -10,6 +10,7 @@ const ContactList = () => {
   const error = useSelector(selectError);
 
   if (isLoading) return (
+    <div className={css.loader}>
     <RotatingLines
       visible={true}
       height="96"
@@ -20,7 +21,8 @@ const ContactList = () => {
       ariaLabel="rotating-lines-loading"
       wrapperStyle={{}}
       wrapperClass=""
-    />
+      />
+      </div>
   );
 
   if (error) return <p>Error: {error}</p>; 
@@ -30,7 +32,7 @@ const ContactList = () => {
     <ul className={css['list-cont']}>
       {contacts.length > 0 ? contacts.map((contact) => (
         <Contact key={contact.id} contact={contact} />
-      )) : <p>Контактів не знайдено</p>}
+      )) : <p>Contacts unknown</p>}
     </ul>
   );
 };
