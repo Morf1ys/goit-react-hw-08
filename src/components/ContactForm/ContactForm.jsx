@@ -23,10 +23,8 @@ const ContactForm = ({ initialValues }) => {
       onSubmit={(values, { resetForm }) => {
         if (values.id) {
           dispatch(updateContact({ id: values.id, contact: { name: values.name, number: values.number } }));
-          console.log('Sending update request...');
         } else {
           dispatch(addContact({ name: values.name, number: values.number }));
-          console.log('Sending add request...');
         }
         resetForm();
       }}
