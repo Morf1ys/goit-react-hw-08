@@ -1,4 +1,3 @@
-
 import css from './BackgroundImageContacts.module.css'; 
 
 const BackgroundImage = () => {

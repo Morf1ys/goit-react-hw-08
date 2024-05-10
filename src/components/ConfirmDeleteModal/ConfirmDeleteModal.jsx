@@ -1,4 +1,3 @@
-
 import Modal from 'react-modal';
 import css from './ConfirmDeleteModal.module.css';
 import { PiSmileyXEyesDuotone } from "react-icons/pi";

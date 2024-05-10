@@ -1,10 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { setUser, setLogout } from "./authSlice";
-// Основна адреса API
+
 const API_BASE_URL = "https://connections-api.herokuapp.com";
 
-// Реєстрація нового користувача
 export const register = createAsyncThunk(
   "auth/register",
   async (userData, { rejectWithValue }) => {
@@ -20,7 +19,6 @@ export const register = createAsyncThunk(
   }
 );
 
-// Логін існуючого користувача
 export const login = createAsyncThunk(
   "auth/login",
   async (userData, { dispatch, rejectWithValue }) => {

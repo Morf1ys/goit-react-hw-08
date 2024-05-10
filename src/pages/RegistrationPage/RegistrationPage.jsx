@@ -1,5 +1,5 @@
 
-import RegistrationForm from '../../components/RegistrationForm/RegistrationForm'; // Припускаючи, що у вас є RegistrationForm компонент
+import RegistrationForm from '../../components/RegistrationForm/RegistrationForm'; 
 
 const RegistrationPage = () => {
     return (

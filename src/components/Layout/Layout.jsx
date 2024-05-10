@@ -1,6 +1,4 @@
-
 import AppBar from '../AppBar/AppBar';
-// import './Layout.css';
 
 const Layout = ({ children }) => {
     return (

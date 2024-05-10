@@ -1,4 +1,3 @@
-
 import css from './LoginRegistrationImage.module.css'; 
 
 const LoginRegistrationImage = () => {

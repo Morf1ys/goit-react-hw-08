@@ -5,8 +5,8 @@
   width: 100%;
   height: 100%;
   background-image: url("../../assets/login-bg.png");
-  background-size: cover; /* Забезпечує, що зображення завжди покриває весь доступний простір */
-  background-position: center; /* Центрує зображення */
-  background-repeat: no-repeat; /* Переконуємося, що зображення не повторюється */
-  z-index: -1; /* Забезпечує, що фонове зображення залишається під контентом */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
 }

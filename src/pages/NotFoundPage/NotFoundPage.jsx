@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import css from './NotFoundPage.module.css';
 import defaultImage from '../../assets/404.png';
