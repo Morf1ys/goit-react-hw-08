@@ -1,3 +1,4 @@
+// src/App.jsx
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
@@ -26,29 +27,23 @@ function App() {
       dispatch(setLogout());
     }
   }, [dispatch]);
-  
 
   return (
     <>
       <Layout>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route element={<RestrictedRoute />}>
-            <Route path="/register" element={<RegistrationPage />} />
-            <Route path="/login" element={<LoginPage />} />
-          </Route>
-          <Route element={<PrivateRoute />}>
-            <Route path="/contacts" element={<ContactsPage />} />
+          <Route path="/register" element={<RegistrationPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route element={<RestrictedRoute redirectTo="/contacts" />}>
+            <Route path="/contacts" element={<PrivateRoute component={ContactsPage} />} />
           </Route>
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Layout>
       <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
-   </>
+    </>
   );
 }
 
 export default App;
-
-
-

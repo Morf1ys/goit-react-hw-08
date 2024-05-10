@@ -1,8 +1,16 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import { setUser, setLogout } from "./authSlice";
 
 const API_BASE_URL = "https://connections-api.herokuapp.com";
+
+const setAuthHeader = (token) => {
+  axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+};
+
+const clearAuthHeader = () => {
+  delete axios.defaults.headers.common["Authorization"];
+};
 
 export const register = createAsyncThunk(
   "auth/register",
@@ -12,8 +20,10 @@ export const register = createAsyncThunk(
         `${API_BASE_URL}/users/signup`,
         userData
       );
+      setAuthHeader(response.data.token);
       return response.data;
     } catch (error) {
+      clearAuthHeader();
       return rejectWithValue(error.response.data);
     }
   }
@@ -27,11 +37,13 @@ export const login = createAsyncThunk(
         `${API_BASE_URL}/users/login`,
         userData
       );
+      setAuthHeader(response.data.token);
       dispatch(
         setUser({ user: response.data.user, token: response.data.token })
       );
       return response.data;
     } catch (error) {
+      clearAuthHeader();
       return rejectWithValue(error.response.data);
     }
   }
@@ -42,31 +54,15 @@ export const logout = createAsyncThunk(
   async (_, { dispatch, getState, rejectWithValue }) => {
     try {
       const { auth } = getState();
-      const response = await axios.post(
+      await axios.post(
         `${API_BASE_URL}/users/logout`,
         {},
         {
           headers: { Authorization: `Bearer ${auth.token}` },
         }
       );
+      clearAuthHeader();
       dispatch(setLogout());
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
-// Оновлення стану користувача
-export const refreshUser = createAsyncThunk(
-  "auth/refresh",
-  async (token, { rejectWithValue }) => {
-    try {
-      const response = await axios.get(`${API_BASE_URL}/users/current`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
