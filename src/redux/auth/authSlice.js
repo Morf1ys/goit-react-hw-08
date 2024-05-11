@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_URL = "https://example.com/api/auth/refresh";
+const API_URL = "https://connections-api.herokuapp.com";
 
 const initialState = {
   user: null,
@@ -12,12 +12,16 @@ const initialState = {
 
 export const refreshUser = createAsyncThunk(
   "auth/refreshUser",
-  async (token, { rejectWithValue }) => {
+  async (_, { getState, rejectWithValue }) => {
+    const token = getState().auth.token;
+    if (!token) {
+      return rejectWithValue("No token found");
+    }
     try {
-      const response = await axios.get(API_URL, {
+      const response = await axios.get(`${API_URL}/users/current`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      return response.data;
+      return { user: response.data, token };
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
@@ -33,15 +37,11 @@ const authSlice = createSlice({
       state.user = user;
       state.token = token;
       state.isLoggedIn = true;
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
     },
     setLogout(state) {
       state.user = null;
       state.token = null;
       state.isLoggedIn = false;
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
     },
   },
   extraReducers: (builder) => {

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import { setUser, setLogout, refreshUser } from './redux/auth/authSlice';
+import { refreshUser } from './redux/auth/authSlice';
 import { getIsRefreshing } from './redux/auth/selectors';
 import HomePage from './pages/HomePage/HomePage';
 import LoginPage from './pages/LoginPage/LoginPage';
@@ -18,22 +18,11 @@ function App() {
   const isRefreshing = useSelector(getIsRefreshing);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
-
-    if (token && user) {
-      dispatch(setUser({ user, token }));
-    } else {
-      dispatch(setLogout());
-    }
-
-    if (token) {
-      dispatch(refreshUser(token));
-    }
+    dispatch(refreshUser());
   }, [dispatch]);
 
   if (isRefreshing) {
-    return <p>Loading...</p>; 
+    return <p>Loading...</p>;
   }
 
   return (
