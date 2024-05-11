@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { setUser, setLogout, refreshUser } from './redux/auth/authSlice';
 import { getIsRefreshing } from './redux/auth/selectors';
 import HomePage from './pages/HomePage/HomePage';
@@ -38,20 +37,16 @@ function App() {
   }
 
   return (
-    <>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/register" element={<RegistrationPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route element={<RestrictedRoute redirectTo="/contacts" />}>
-            <Route path="/contacts" element={<PrivateRoute component={ContactsPage} />} />
-          </Route>
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </Layout>
+    <Layout>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/register" element={<RestrictedRoute component={RegistrationPage} />} />
+        <Route path="/login" element={<RestrictedRoute component={LoginPage} />} />
+        <Route path="/contacts" element={<PrivateRoute component={ContactsPage} />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
       <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
-    </>
+    </Layout>
   );
 }
 

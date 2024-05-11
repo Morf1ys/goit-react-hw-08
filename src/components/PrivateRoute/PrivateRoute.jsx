@@ -8,7 +8,7 @@ const PrivateRoute = ({ component: Component, redirectTo = '/login' }) => {
   return isLoggedIn ? (
     <Component />
   ) : (
-    <Navigate to={redirectTo} />
+    <Navigate to={redirectTo} replace />
   );
 };
 
