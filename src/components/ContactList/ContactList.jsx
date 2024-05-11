@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import Contact from '../Contact/Contact';
-import { selectFilteredContacts, selectLoading, selectError } from '../../redux/contacts/contactsSlice';
+import { selectFilteredContacts, selectLoading, selectError } from '../../redux/contacts/selectors';
 import css from './ContactList.module.css';
 import { RotatingLines } from 'react-loader-spinner';
 

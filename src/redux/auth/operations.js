@@ -5,11 +5,11 @@ import { setUser, setLogout } from "./authSlice";
 const API_BASE_URL = "https://connections-api.herokuapp.com";
 
 const setAuthHeader = (token) => {
-  axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-};
-
-const clearAuthHeader = () => {
-  delete axios.defaults.headers.common["Authorization"];
+  if (token) {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  } else {
+    delete axios.defaults.headers.common["Authorization"];
+  }
 };
 
 export const register = createAsyncThunk(
@@ -68,3 +68,24 @@ export const logout = createAsyncThunk(
     }
   }
 );
+
+export const refreshUser = createAsyncThunk(
+  "auth/refreshUser",
+  async (_, { getState, rejectWithValue }) => {
+    const { auth } = getState();
+    if (!auth.token) return rejectWithValue("No token available");
+
+    try {
+      const response = await axios.get(`${API_BASE_URL}/users/current`, {
+        headers: { Authorization: `Bearer ${auth.token}` },
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+const clearAuthHeader = () => {
+  delete axios.defaults.headers.common["Authorization"];
+};

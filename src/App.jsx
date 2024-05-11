@@ -1,10 +1,10 @@
-// src/App.jsx
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { setUser, setLogout } from './redux/auth/authSlice';
+import { setUser, setLogout, refreshUser } from './redux/auth/authSlice';
+import { getIsRefreshing } from './redux/auth/selectors';
 import HomePage from './pages/HomePage/HomePage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import RegistrationPage from './pages/RegistrationPage/RegistrationPage';
@@ -16,6 +16,7 @@ import Layout from './components/Layout/Layout';
 
 function App() {
   const dispatch = useDispatch();
+  const isRefreshing = useSelector(getIsRefreshing);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -26,7 +27,15 @@ function App() {
     } else {
       dispatch(setLogout());
     }
+
+    if (token) {
+      dispatch(refreshUser(token));
+    }
   }, [dispatch]);
+
+  if (isRefreshing) {
+    return <p>Loading...</p>; 
+  }
 
   return (
     <>

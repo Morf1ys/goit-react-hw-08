@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteContact, updateContact } from '../../redux/contactsOps';
+import { deleteContact, updateContact } from '../../redux/contacts/operations';
 import { FaUser, FaPhoneAlt, FaTrash, FaPencilAlt } from 'react-icons/fa';
 import EditContactModal from '../EditContactModal/EditContactModal'; 
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
